@@ -1,0 +1,61 @@
+﻿@model FarmersMarket.Models.ViewModels.MarketViewModel
+@{
+    ViewBag.Title = "Home";
+}
+
+<div class="d-flex justify-content-center mb-4">
+    <div class="px-3">
+        <span class="fa fa-square text-primary"></span>
+        <small>Strong Entity</small>
+    </div>
+    <div class="px-3">
+        <span class="fa fa-square text-success"></span>
+        <small>Weak Entity</small>
+    </div>
+    <div class="px-3">
+        <span class="fa fa-square text-danger"></span>
+        <small>Associative Entity</small>
+    </div>
+</div>
+<div id="entities" class="card-deck">
+    <div class="card bg-dark text-light border-0">
+        <div class="card-body">
+            <div class="d-flex flex-row flex-wrap no-gutters">
+                <div class="col">
+                    <h5 class="card-title">Vendors</h5>
+                </div>
+                <div class="col text-right">
+                    <code>dbo.vendor</code>
+                </div>
+            </div>
+            <p class="card-text text-justify"></p>
+            <hr />
+            <p class="card-text small text-right">Strong Entity</p>
+        </div>
+        <div class="card-footer">
+            <div class="database-table border-primary text-dark table-responsive">
+                <table class="table table-borderless table-striped table-sm table-dark">
+                    <thead class="text-info">
+                    <tr>
+                        <th>Store Name</th>
+                        <th>Owner Name</th>
+                        <th>Owner Email</th>
+                        <th>Owner Phone</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var vendor in Model.Vendors)
+                    {
+                        <tr>
+                            <td>@vendor.StoreName</td>
+                            <td>@Model.Owners.Single(o => o.OwnerId == vendor.OwnerId).FullName</td>
+                            <td>@Model.Owners.Single(o => o.OwnerId == vendor.OwnerId).Email</td>
+                            <td>@Model.Owners.Single(o => o.OwnerId == vendor.OwnerId).Phone</td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

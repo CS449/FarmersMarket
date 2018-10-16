@@ -1,0 +1,6 @@
+﻿SELECT [owner_id]
+      ,[first_name]
+      ,[last_name]
+      ,[email]
+      ,[phone]
+  FROM [FarmersMarket].[dbo].[owner]

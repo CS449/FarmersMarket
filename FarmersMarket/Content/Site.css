@@ -1,0 +1,72 @@
+﻿body {
+    font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 1.15em;
+    letter-spacing: 1px;
+    background: #303136;
+    background: rgba(48, 49, 54, 0.87);
+    color: #e2e2e2;
+}
+
+hr {
+    background-color: #616161;
+}
+
+nav {
+    font-variant-caps: all-small-caps;
+    font-size: 1.05em;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-top: 50px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 20px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+#entities-legend {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#entities > .card > .card-footer {
+    background-color: #949494;
+}
+.database-table {
+    width: 100%;
+    height: auto;
+    box-shadow: 0 5px 12px #484848;
+    background-color: #d7d7d7;
+    border-top: 10px solid;
+    margin-top: 4px;
+    margin-bottom: 6px;
+}
+.database-table > table {
+    margin-bottom: 0;
+}
+.database-table > table > thead,tbody {
+    text-align: center;
+}
+
+@media screen and (max-width: 1024px) {
+    #entities-legend {
+        position: relative;
+        top: 0;
+        left: 0;
+    }
+}
