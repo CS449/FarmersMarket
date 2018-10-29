@@ -1,0 +1,40 @@
+﻿@model List<FarmersMarket.Models.Logic.Vendor>
+
+<div class="card bg-dark text-light border-0" data-entity="vendor">
+    <div class="card-body">
+        <div class="d-flex flex-row flex-wrap no-gutters">
+            <div class="col">
+                <h5 class="card-title">Vendors</h5>
+            </div>
+            <div class="col text-right">
+                <code>dbo.vendor</code>
+            </div>
+        </div>
+        <p class="card-text text-justify"></p>
+        <hr />
+        <p class="card-text small text-right">Strong Entity</p>
+        <div class="database-table border-primary text-dark table-responsive">
+            <table class="table table-borderless table-striped table-sm table-dark">
+                <thead class="text-info">
+                <tr>
+                    <th>Vendor</th>
+                    <th>Owner Name</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var vendor in Model)
+                {
+                    <tr>
+                        <td>@vendor.StoreName</td>
+                        <td>@($"{vendor.FirstName} {vendor.LastName}")</td>
+                        <td>Location ID: @vendor.LocationId</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card-footer">
+    </div>
+</div>

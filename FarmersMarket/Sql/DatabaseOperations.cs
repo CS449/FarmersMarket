@@ -10,23 +10,25 @@ namespace FarmersMarket.Sql
 {
     public static class DatabaseOperations
     {
-        private static string ConnectionString => ConfigurationManager.ConnectionStrings["SQLServerLocal"].ConnectionString;
+        private static readonly string ConnString = ConfigurationManager.ConnectionStrings["SqlConn"].ConnectionString;
 
         private static DataTable LoadDataTable(string query)
         {
-            using (var conn = new SqlConnection(ConnectionString))
+            using (var conn = new SqlConnection(ConnString))
             using (var cmd = new SqlCommand(query, conn))
             {
-                cmd.Connection.Open();
+                conn.Open();
                 var dt = new DataTable();
-                dt.Load(cmd.ExecuteReader());
-                return dt;
+                using (var reader = cmd.ExecuteReader())
+                {
+                    dt.Load(reader);
+                    return dt;
+                }
             }
         }
 
         /* ------------------------------------------------------ */
 
         public static DataTable GetVendors() => LoadDataTable(Queries.GetVendors);
-        public static DataTable GetOwners() => LoadDataTable(Queries.GetOwners);
     }
 }

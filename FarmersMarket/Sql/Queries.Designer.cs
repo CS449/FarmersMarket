@@ -61,24 +61,12 @@ namespace FarmersMarket.Sql {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SELECT [owner_id]
-        ///      ,[first_name]
-        ///      ,[last_name]
-        ///      ,[email]
-        ///      ,[phone]
-        ///  FROM [FarmersMarket].[dbo].[owner].
-        /// </summary>
-        internal static string GetOwners {
-            get {
-                return ResourceManager.GetString("GetOwners", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to SELECT [vendor_id]
-        ///      ,[owner_id]
+        ///	  ,[location_id]
         ///      ,[store_name]
-        ///  FROM [FarmersMarket].[dbo].[vendor].
+        ///	  ,[first_name]
+        ///	  ,[last_name]
+        ///  FROM [master].[dbo].[fm_vendor].
         /// </summary>
         internal static string GetVendors {
             get {

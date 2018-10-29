@@ -1,4 +1,6 @@
 ﻿SELECT [vendor_id]
-      ,[owner_id]
+	  ,[location_id]
       ,[store_name]
-  FROM [FarmersMarket].[dbo].[vendor]
+	  ,[first_name]
+	  ,[last_name]
+  FROM [master].[dbo].[fm_vendor]

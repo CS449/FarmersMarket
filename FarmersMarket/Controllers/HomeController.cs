@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using FarmersMarket.Models.ViewModels;
+using FarmersMarket.Models.Logic;
+using FarmersMarket.Sql;
 
 namespace FarmersMarket.Controllers
 {
@@ -11,7 +13,14 @@ namespace FarmersMarket.Controllers
     {
         public ActionResult Index()
         {
-            return View(new MarketViewModel());
+            return View();
+        }
+
+        [HttpPost]
+        public PartialViewResult GetTableVendor()
+        {
+            var vendors = DatabaseOperations.GetVendors().AsEnumerable().Select(o => new Vendor(o)).ToList();
+            return PartialView("_TableVendor", vendors);
         }
     }
 }

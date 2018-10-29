@@ -12,12 +12,16 @@ namespace FarmersMarket.Models.Logic
         public Vendor(DataRow dr)
         {
             VendorId = dr.Field<int>("vendor_id");
-            OwnerId = dr.Field<int>("owner_id");
+            LocationId = dr.Field<int>("location_id");
             StoreName = dr.Field<string>("store_name");
+            FirstName = dr.Field<string>("first_name");
+            LastName = dr.Field<string>("last_name");
         }
 
         public int VendorId { get; set; }
-        public int OwnerId { get; set; }
+        public int LocationId { get; set; }
         public string StoreName { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
     }
 }

@@ -1,8 +1,45 @@
-﻿@model FarmersMarket.Models.ViewModels.MarketViewModel
-@{
+﻿@{
     ViewBag.Title = "Home";
 }
+<script type="text/javascript">
+    $(document).ready(function () {
+        var entities = new EntityDeck('entities');
+        entities.LoadTable("vendor");
+    });
 
+    var EntityDeck = function(containerId) {
+        this.containerId = containerId;
+        this.getTableVendor = '@Url.Action("GetTableVendor")';
+    }
+    EntityDeck.prototype = {
+        LoadTable: function (entityName) {
+            var action;
+            switch (entityName) {
+                case "vendor":
+                    action = this.getTableVendor;
+                    break;
+                default:
+                    console.error("Could not load " + entityName + ". There is no table associated with that name.");
+                    return;
+            }
+            $.ajax({
+                type: 'POST',
+                url: action,
+                dataType: 'html',
+                success: function(data) {
+                    $('#entities').append(data);
+                }
+            });
+        },
+        RemoveTable: function(entityName) {
+            $('[data-entity="' + entityName + '"]').remove();
+        },
+        ReloadTable: function(entityName) {
+            RemoveTable(entityName);
+            LoadTable(entityName);
+        }
+    }
+</script>
 <div class="d-flex justify-content-center mb-4">
     <div class="px-3">
         <span class="fa fa-square text-primary"></span>
@@ -17,45 +54,4 @@
         <small>Associative Entity</small>
     </div>
 </div>
-<div id="entities" class="card-deck">
-    <div class="card bg-dark text-light border-0">
-        <div class="card-body">
-            <div class="d-flex flex-row flex-wrap no-gutters">
-                <div class="col">
-                    <h5 class="card-title">Vendors</h5>
-                </div>
-                <div class="col text-right">
-                    <code>dbo.vendor</code>
-                </div>
-            </div>
-            <p class="card-text text-justify"></p>
-            <hr />
-            <p class="card-text small text-right">Strong Entity</p>
-        </div>
-        <div class="card-footer">
-            <div class="database-table border-primary text-dark table-responsive">
-                <table class="table table-borderless table-striped table-sm table-dark">
-                    <thead class="text-info">
-                    <tr>
-                        <th>Store Name</th>
-                        <th>Owner Name</th>
-                        <th>Owner Email</th>
-                        <th>Owner Phone</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach (var vendor in Model.Vendors)
-                    {
-                        <tr>
-                            <td>@vendor.StoreName</td>
-                            <td>@Model.Owners.Single(o => o.OwnerId == vendor.OwnerId).FullName</td>
-                            <td>@Model.Owners.Single(o => o.OwnerId == vendor.OwnerId).Email</td>
-                            <td>@Model.Owners.Single(o => o.OwnerId == vendor.OwnerId).Phone</td>
-                        </tr>
-                    }
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
+<div id="entities" class=""></div>
