@@ -1,98 +1,72 @@
--- Add your Use statement here
+CREATE DATABASE farmers_Market;
+use farmers_Market;
 
-create table vendor(
-vendorID  INT  not null,
-firstname  varchar(30) null,
-lastname varchar(45) null,
-phone varchar(10)  null,
-active char(1)  null,
+--Vendor Info Table
+CREATE TABLE Vendor_Info (
+VendorID INT NOT NULL, 
+First VARCHAR(20) NOT NULL, 
+Last VARCHAR(20) NOT NULL, 
+Active INT NOT NULL, 
+StoreName VARCHAR(20)NOT NULL,
+LocationID INT,
+AcceptsCard INT,
+PRIMARY KEY (VendorID),
+foreign key (LocationID) references LocationPrice(LocationID));
+INSERT INTO Vendor_Info(VendorID,First,Last,Active,StoreName,LocationID,AcceptsCard)
+VALUES(1,'John','Smith',0,'JohnsApples',1,1)
 
-primary key (vendorID)
-
-);
-drop table vendor;
-create table vendor(
-vendorID  INT  not null,
-firstname  varchar(20) null,
-lastname varchar(20) null,
-phone varchar(10)  null,
-active int not  null,
-locationID char(5) null,
-primary key (vendorID)
-
-);
-drop table vendor;
-create table vendor(
-vendorID  INT  not null,
-firstname  varchar(20) null,
-lastname varchar(20) null,
-phone varchar(10)  null,
-acceptsCards int not  null,
-locationID char(5) not null,
-primary key (vendorID),
-foreign key (locationID) references location(locationID)
-
-
-);
-Alter  table vendor
-Add Column active int after vendorID;
-Alter table vendor
-Add column Storename varchar(20) not null after active;
-insert into vendor(vendorID, active, storename, firstname, lastname, acceptsCards, locationID) Values (1,0,'Johns Apples', 'John', 'Smith', 1, 1);
-create table inventory(
+drop table Vendor_Info
+--Inventory Table
+CREATE Table Inventory_Table(
 ProductID int,
 VendorID int,
-Productname varchar(20),
-Num_in_stock int,
-primary key(productID),
-foreign key(vendorID) references vendor(vendorID)
+ProductName VarChar(20),
+Num_in_Stock int,
+Primary Key (ProductID),
+foreign key (VendorID)references Vendor_Info(VendorID));
+INSERT INTO Inventory_Table(ProductID,VendorID,ProductName,Num_in_Stock)
+VALUES(1,3,'Apples',15)
+DROP TABLE Inventory_Table
 
-
-
-
-
-
-);
-insert into inventory(ProductID, VendorID, Productname, Num_in_stock) Values(1,3, 'Apples', 15);
-create table vendortransactionhistory(
-transactionID int not null,
+--Vandoor transaction history related table 
+CREATE Table VendorTransHistory(
+TransactionID int not null,
 VendorID int not null,
-ProductName varchar(20) not null,
-price Dec(2)  not null,
+ProductName VarChar(20) not null,
+Date DateTime not null,
+Price money not null,
 ProductID int,
-primary key (transactionID),
-foreign key (ProductID) references inventory(ProductID)
+Primary Key (TransactionID),
+foreign key(ProductID)references Inventory_Table (ProductID));
+INSERT INTO VendorTransHistory(TransactionID,VendorID,ProductName,Date,Price,ProductID)
+VALUES(123,5,'Apples',10/29/2018,18,15);
+DROP Table VendorTransHistory
+--Customer table for CC Trans only
+CREATE Table CustomerTable(
+CustomerID INT not NULL,
+First VarChar(20),
+Last  VarChar(20),
+CardNumber VarChar(4) not null,
+Primary Key (CustomerID));
+INSERT INTO CustomerTable(CustomerID,First,Last,CardNumber)
+VALUES(4,'John','Smith',1234);
+
+--Location pricing Table 
+CREATE TABLE LocationPrice(
+LocationID INT NOT NULL,
+Section CHAR(2) NOT NULL,
+BoothNumber INT NOT NULL,
+Price int NOT NULL,
+Primary Key (LocationID));
 
 
-
-
-
-
-
-);
-Alter table vendortransactionhistory
-Add Column Date datetime after ProductName;
-insert into vendortransactionhistory(TransactionID, VendorID, ProductName, Date, price, ProductID) Values (123, 5, 'Apples', now(), 18.00, 2);
-create table customer(
-CustomerID int not null,
-First varchar(20), 
-Last varchar(20),
-CardNumber varchar(4) not null,
-primary key (CustomerID)
-
-
-
-
-
-
-
-);
-insert into customer (CustomerID, First, Last, CardNumber) Values ( 4, 'John', 'Smith', '1234');
-create table locationpricing(
-locationID int not null,
-Section char(2) not null,
-Boothnumber int not null,
-primary key (locationID)
-
-
-);
+--Credit card transaction table
+CREATE TABLE CCtransaction(
+transID INT,
+MethodofPayment bit,
+CustomerID int ,
+CreditNumhash nvarchar(max),
+Salt nvarchar(50),
+Primary Key(transID),
+Foreign Key(CustomerID)references CustomerTable(CustomerID));
+drop table CCTransaction 
