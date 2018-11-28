@@ -1,4 +1,5 @@
-Use James;
+-- Add your Use statement here
+
 create table vendor(
 vendorID  INT  not null,
 firstname  varchar(30) null,
